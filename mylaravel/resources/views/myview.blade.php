@@ -1,123 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laravel_1</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=K2D:wght@400;600&display=swap" rel="stylesheet">
+<langhg="en">
+<html>
+    <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    {{-- ฟ้อนท์ --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    {{-- ตกแต่ง --}}
     <style>
         body {
-            font-family: "K2D", sans-serif;
-            background-color: #f5f5f5;
-            margin-top: 50px;
-            color: #4e4e4e;
+            font-family: 'Kanit', sans-serif;
+            background-color: #f2e5e5; /* Soft pastel pink */
+            color: #5c5c5c; /* Neutral text color */
         }
-
-        h1 {
-            text-align: center;
-            font-weight: 700;
-            color: #4b3d3d;
-            margin-bottom: 30px;
+    
+        .content {
+            border-radius: 40px;
+            background-color: #aec6cf; /* Pastel blue */
+            padding: 20px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
         }
-
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-label {
-            font-weight: 600;
-            color: #5e4b4b;
-        }
-
-        .table-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table td {
-            padding: 12px;
-            text-align: center;
-            font-size: 16px;
-        }
-
-        table th {
-            background-color: #6f4e37;
-            color: white;
-            font-size: 18px;
-            padding: 12px;
-        }
-
-        table tr:nth-child(even) {
-            background-color: #f2e6e2;
-        }
-
-        table tr:nth-child(odd) {
-            background-color: #fdf2f0;
-        }
-
+    
         button {
-            background-color: #6f4e37;
+            color: #ffffff;
+            font-weight: bold;
             border: none;
             padding: 10px 20px;
-            color: white;
-            font-weight: bold;
-            font-size: 16px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            border-radius: 10px;
+            transition: 0.3s ease-in-out;
         }
-
-        button:hover {
-            background-color: #4a3629;
+    
+        .btn-success {
+            background-color: #77dd77; /* Pastel green */
         }
-
-        .btn-primary:focus {
-            box-shadow: none;
+    
+        .btn-success:hover {
+            background-color: #99e6a9; /* Lighter pastel green */
+        }
+    
+        .btn-success:active {
+            background-color: #66cdaa !important; /* Deeper pastel green */
         }
     </style>
-</head>
-<body>
-    <div class="container mt-5">
-        <h1>ตารางสูตรคูณ</h1>
-        <form method="post" action="{{ url('/mycontroller') }}">
-            @csrf
-            <div class="mb-4">
-                <label for="myinput" class="form-label"><b>กรอกตัวเลข</b></label>
-                <input type="number" name="myinput" id="myinput" class="form-control" placeholder="กรอกตัวเลข" required>
+    
+        </body>
+            <div class="container mt-5">
+        <h1>ตารางแม่สูตรคูณ</h1>
+
+        <form action="{{ url('/mycontroller') }}"  method="post">
+        @csrf
+            <div class="mb-3">
+            <input type="text" name="myinput">
+
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="mb-4">
+                <button class="btn btn-success" type="submit" >สร้างตารางสูตรคูณ</button>
+            </div>
         </form>
 
-        @if(isset($number))
-        <h2 class="mt-5"><b>ตารางสูตรคูณแม่ {{ $number }}</b></h2>
-        <div class="table-container">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th><b>สูตรคูณ</b></th>
-                        <th><b>ผลลัพธ์</b></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for($i = 1; $i <= 12; $i++)
-                    <tr>
-                        <td>{{ $number }} x {{ $i }}</td>
-                        <td>{{ $number * $i }}</td>
-                    </tr>
-                    @endfor
-                </tbody>
-            </table>
+        <div class="mt-4">
+            <?php
+
+            if (isset($_POST['myinput']) != null) {
+                $myvar = (int)$_POST['myinput'];
+                echo "<h3>ตารางสูตรคูณของแม่ $myvar</h3>";
+                echo "<ul class='list-group'>";
+
+                for ($i = 1; $i <= 12; $i++) {
+                    $ans = $myvar * $i;
+                    echo "<li class='list-group-item'>$myvar x $i = $ans</li>";
+                }
+                echo "</ul>";
+            }
+            ?>
         </div>
-        @endif
     </div>
-</body>
+        </body>
+    </head>
 </html>

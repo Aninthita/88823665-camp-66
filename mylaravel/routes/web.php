@@ -30,15 +30,15 @@ Route::get('/user/{id}',
 Route::put('/user',
  [UserController::class, 'edit_action']);
 Route::delete('/user',
- [UserController::class, 'edit_action']);
+ [UserController::class, 'delete']);
 
 
-Route::get('/mycontroller/{id?}',
+ Route::get('/mycontroller/{id?}',
  [MyController::class, 'myfunction']);
-Route::post('/mycontroller',
-[MyController::class, 'MYFUNCTION']);
+Route::post('/mycontroller/{id?}',
+ [MyController::class, 'MYFUNCTION']);
 
-Route::get('/myview', function () {
-    return view('myview');
-});
 
+//Route::get('/ll', function () {
+//   abort(500); 
+//});
