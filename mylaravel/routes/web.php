@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 
 // หน้า Login
 Route::get('/login', [LoginController::class, 'index']);
+Route::post('/login', [LoginController::class, 'login']);
 
 // หน้า Register
 Route::get('/register', [RegisterController::class, 'index']);
