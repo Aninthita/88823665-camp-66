@@ -1,6 +1,7 @@
 @extends('layouts.default_with_menu')
 
 @section('content')
+<h1>{{ session('user')->name }}</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
@@ -32,9 +33,8 @@
                                             @csrf
                                             @method('delete')
                                             <input type="hidden" name="id" value="{{ $user->id }}">
-                                            <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Delete">
-                                                Delete
-                                            </button>
+                                            <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Delete" onclick="confirm_delete()">
+                                                Delete </button>
                                         </form>
                                     </td>
                                 </tr>
@@ -61,43 +61,41 @@
                     </ul>
                   </div>
                 </div>
-                <button class="btn" onclick="confirm_delete()">Click Me</button>
                 <!-- /.card -->
               </div>
         </div>
 @endsection
 
+@section('scripts')
+ <script>
+        function confirm_delete(userId) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                console.log("Result", result);
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    }).then(() => {
+                        if (userId === 'clickMe') {
+                            console.log("Result", result);
+                        } else {
+                            console.log("Result", result);
+                            document.getElementById("user-" + userId)
+                                .submit();
+                        }
+                    });
+                }
+            });
+        }
+    </script>
 
-                @section('scripts')
-                <script>
-                       function confirm_delete(userId) {
-                           Swal.fire({
-                               title: "Are you sure?",
-                               text: "You won't be able to revert this!",
-                               icon: "warning",
-                               showCancelButton: true,
-                               confirmButtonColor: "##2347e8",
-                               cancelButtonColor: "#e82323",
-                               confirmButtonText: "Yes, delete it!"
-                           }).then((result) => {
-                               console.log("Result", result);
-                               if (result.isConfirmed) {
-                                   Swal.fire({
-                                       title: "Deleted!",
-                                       text: "Your file has been deleted.",
-                                       icon: "success"
-                                   }).then(() => {
-                                       if (userId === 'clickMe') {
-                                           console.log("Result", result);
-                                       } else {
-                                           console.log("Result", result);
-                                           document.getElementById("user-" + userId)
-                                               .submit(); 
-                                       }
-                                   });
-                               }
-                           });
-                       }
-                   </script>
-               
-               @endsection
+@endsection

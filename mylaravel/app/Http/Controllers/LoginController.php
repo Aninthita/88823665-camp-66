@@ -3,26 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class LoginController extends Controller
 {
-    public function index() {
-        return view('login');
+    //
+    function index(){
+    return view('login');
     }
-
-    public function login(Request $req) {
-        // Find user by email
+    function login(Request $req){
         $user = User::where('email', $req->email)->first();
-
-        // Verify password and authenticate user
-        if ($user && Hash::check($req->password, $user->password)) {
-            Auth::login($user);
-            return redirect('/users');
-        } else {
-            return redirect('/login')->withErrors(['error' => 'กรุณาตรวจสอบความถูกต้อง']);
+        //print_r($user);
+        if($user != null && Hash::check($req->password, $user->password)){
+            $req->session()->put('user', $user);
+            return redirect('/user');
+        }else{
+            $req->session()->flash('error','กรุณาตรวจสอบข้อมูลอีกครั้ง');
+            return redirect('/login');
         }
     }
 }
